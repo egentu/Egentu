@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="description" content="Egentu — premium AI agency building AI-powered websites, autonomous agents, business automations & custom ML models."/>
+<meta name="keywords" content="AI agency, artificial intelligence, AI agents, machine learning, business automation"/>
+<meta name="author" content="Egentu"/>
+<meta property="og:title" content="Egentu | AI Agency"/>
+<meta property="og:description" content="Premium AI agency for websites, agents, automations & ML models."/>
+<title>Egentu</title>
+<!-- External Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<!-- Main CSS -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<!-- Reviews CSS (new) -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/review.css') }}">
+<!--<link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo-icon.png') }}">-->
+<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/logo-icon.png') }}">
+</head>
+<body>
+
+<!-- NAVIGATION (same as before) -->
+<nav id="navbar">
+  <div class="logo-wrapper">
+    <img src="{{ url_for('static', filename='img/logo-icon.png') }}" alt="Egentu" class="logo-img">
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#work">Work</a></li>
+    <!--<li><a href="#pricing">Pricing</a></li>-->
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Started</button>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO (same) -->
+<section id="hero">
+  <canvas id="canvas3d"></canvas>
+  <div class="hero-content">
+    <h1 class="hero-title">We Build the<br><span class="grad-text">AI-Powered Future</span></h1>
+    <p class="hero-sub">Egentu crafts intelligent websites, Autonomous AI agents, Smart Automations, and Machine Learning systems that put your business years ahead.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Start Your Project →</a>
+      <a href="#work" class="btn-secondary">See Our Work</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS (same) -->
+<div class="stats-bar">
+  <div class="stat-item reveal"><strong>50+</strong><p>Projects Delivered</p></div>
+  <div class="stat-item reveal"><strong>98%</strong><p>Client Satisfaction</p></div>
+  <div class="stat-item reveal"><strong>3×</strong><p>Avg. ROI Boost</p></div>
+  <div class="stat-item reveal"><strong>24/7/365</strong><p>AI Systems Running</p></div>
+</div>
+
+<!-- SERVICES (same) -->
+<section id="services">
+  <div class="centered reveal">
+    <span class="section-tag">What We Do</span>
+    <h2 class="section-title">AI Solutions That <span class="grad-text">Actually Work</span></h2>
+    <p class="section-sub">From intelligent Web experiences to fully Autonomous Agent pipelines — We engineer systems that think, adapt, and deliver results.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal"><div class="svc-icon p">🌐</div><h3>AI-Powered Websites</h3><p>Stunning, high-performance websites with embedded AI — personalization engines, chatbots, dynamic content, and conversion optimization baked in.</p><span class="svc-tag">Next.js · React · CMS</span></div>
+    <div class="service-card reveal"><div class="svc-icon c">🤖</div><h3>Autonomous AI Agents</h3><p>Custom LLM-powered agents that research, reason, execute, and report — handling complex multi-step workflows without human supervision.</p><span class="svc-tag">LangChain · GPT-4 · Tools</span></div>
+    <div class="service-card reveal"><div class="svc-icon pk">⚡</div><h3>Business Automations</h3><p>End-to-end workflow automation — lead generation, data pipelines, email sequences, CRM sync, and reporting. Cut manual work by up to 90%.</p><span class="svc-tag">n8n · Zapier · Python</span></div>
+    <div class="service-card reveal"><div class="svc-icon g">🧠</div><h3>Machine Learning Models</h3><p>Custom ML models trained on your data — predictive analytics, classification, recommendation engines, NLP systems, and computer vision.</p><span class="svc-tag">PyTorch · TensorFlow · MLOps</span></div>
+    <div class="service-card reveal"><div class="svc-icon p">💬</div><h3>RAG & Knowledge Bases</h3><p>Retrieval-Augmented Generation systems that give your AI perfect memory — indexed from your documents, databases, and internal knowledge.</p><span class="svc-tag">Pinecone · Weaviate · Qdrant</span></div>
+    <div class="service-card reveal"><div class="svc-icon c">📊</div><h3>AI Strategy & Consulting</h3><p>Not sure where to start? We audit your workflows, identify the highest-ROI AI opportunities, and build your complete roadmap to intelligent operations.</p><span class="svc-tag">Audit · Roadmap · POC</span></div>
+  </div>
+</section>
+
+<!-- PROCESS (same) -->
+<section id="process">
+  <div class="centered reveal">
+    <span class="section-tag">How We Work</span>
+    <h2 class="section-title">From Idea to <span class="grad-text">Intelligent System</span></h2>
+    <p class="section-sub">A proven 5-step process that delivers quality AI systems on time, every time.</p>
+  </div>
+  <div class="process-steps">
+    <div class="step reveal"><div class="step-num">01</div><h3>Discovery</h3><p>We deep-dive into your business goals, data landscape, and constraints to define the right AI approach.</p></div>
+    <div class="step reveal"><div class="step-num">02</div><h3>Architecture</h3><p>We design the system blueprint — models, APIs, data flows, infrastructure, and integration points.</p></div>
+    <div class="step reveal"><div class="step-num">03</div><h3>Build & Train</h3><p>Rapid development with weekly demos. Models are trained, agents are built, and systems are wired up.</p></div>
+    <div class="step reveal"><div class="step-num">04</div><h3>Test & Optimize</h3><p>Rigorous QA, edge-case handling, performance benchmarking, and safety checks before anything goes live.</p></div>
+    <div class="step reveal"><div class="step-num">05</div><h3>Deploy & Scale</h3><p>Production deployment, monitoring dashboards, and ongoing optimization as your system grows.</p></div>
+  </div>
+</section>
+
+<!-- TECH (same) -->
+<section id="tech">
+  <div class="centered reveal">
+    <span class="section-tag">Our Stack</span>
+    <h2 class="section-title">Tools We <span class="grad-text">Master</span></h2>
+    <p class="section-sub">We work with the cutting edge — not buzzwords.</p>
+  </div>
+  <div class="tech-grid">
+    <div class="tech-pill reveal"><div class="tech-dot" style="background:#a855f7"></div>Python</div>
+    <div class="tech-pill reveal"><div class="tech-dot" style="background:#06b6d4"></div>OpenAI GPT-4</div>
+    <div class="tech-pill reveal"><div class="tech-dot" style="background:#ec4899"></div>Claude API</div>
+    <div class="tech-pill reveal"><div class="tech-dot" style="background:#f59e0b"></div>LangChain</div>
+    <div class="tech-pill reveal"><div class="tech-dot" style="background:#3b82f6"></div>LlamaIndex</div>
+    <div class="tech-pill reveal"><div class="tech-dot" style="background:#10b981"></div>FastAPI</div>
+    <div class="tech-pill reveal"><div class="tech-dot" style="background:#a855f7"></div>Next.js</div>
+    <div class="tech-pill reveal"><div class="tech-dot" style="background:#06b6d4"></div>React</div>
+    <div class="tech-pill reveal"><div class="tech-dot" style="background:#ef4444"></div>PyTorch</div>
+    <div class="tech-pill reveal"><div class="tech-dot" style="background:#f59e0b"></div>TensorFlow</div>
+    <div class="tech-pill reveal"><div class="tech-dot" style="background:#10b981"></div>n8n</div>
+    <div class="tech-pill reveal"><div class="tech-dot" style="background:#3b82f6"></div>Pinecone</div>
+    <div class="tech-pill reveal"><div class="tech-dot" style="background:#a855f7"></div>Supabase</div>
+    <div class="tech-pill reveal"><div class="tech-dot" style="background:#06b6d4"></div>AWS / GCP</div>
+    <div class="tech-pill reveal"><div class="tech-dot" style="background:#ec4899"></div>Docker / K8s</div>
+    <div class="tech-pill reveal"><div class="tech-dot" style="background:#ef4444"></div>Hugging Face</div>
+  </div>
+</section>
+
+<!-- WORK (with review section inside) -->
+<section id="work">
+  <div class="centered reveal">
+    <span class="section-tag">Portfolio</span>
+    <h2 class="section-title">Recent <span class="grad-text">AI Projects</span></h2>
+    <p class="section-sub">Real systems. Real results. Built with intelligence at the core.</p>
+  </div>
+  <div class="work-grid">
+    <div class="work-card reveal"><div class="work-thumb w1"><div class="work-glow" style="background:rgba(124,58,237,0.6)"></div>🤖</div><div class="work-info"><h3>FinBot — Wealth AI Agent</h3><p>Autonomous financial research agent that monitors 500+ assets, generates reports, and sends personalized alerts 24/7.</p><div class="work-tags"><span class="work-tag">AI Agent</span><span class="work-tag">GPT-4</span><span class="work-tag">Finance</span></div></div></div>
+    <div class="work-card reveal"><div class="work-thumb w2"><div class="work-glow" style="background:rgba(6,182,212,0.6)"></div>🌐</div><div class="work-info"><h3>MedPortal — AI Healthcare Site</h3><p>HIPAA-compliant patient portal with AI symptom checker, appointment booking agent, and personalized health dashboards.</p><div class="work-tags"><span class="work-tag">Web App</span><span class="work-tag">RAG</span><span class="work-tag">Healthcare</span></div></div></div>
+    <div class="work-card reveal"><div class="work-thumb w3"><div class="work-glow" style="background:rgba(236,72,153,0.6)"></div>⚡</div><div class="work-info"><h3>LeadFlow — Sales Automation</h3><p>End-to-end sales automation that scrapes leads, enriches data, drafts personalized outreach, and tracks replies — zero manual work.</p><div class="work-tags"><span class="work-tag">Automation</span><span class="work-tag">n8n</span><span class="work-tag">SaaS</span></div></div></div>
+    <div class="work-card reveal"><div class="work-thumb w4"><div class="work-glow" style="background:rgba(16,185,129,0.6)"></div>🧠</div><div class="work-info"><h3>ChurnShield — ML Prediction</h3><p>Customer churn prediction model (94% accuracy) with real-time scoring API and intervention recommendation engine.</p><div class="work-tags"><span class="work-tag">ML Model</span><span class="work-tag">PyTorch</span><span class="work-tag">SaaS</span></div></div></div>
+  </div>
+
+  <!-- ========== REVIEWS SECTION ========== -->
+  <div class="centered reveal" style="margin-top: 5rem;">
+    <span class="section-tag">Client Reviews</span>
+    <h2 class="section-title">What Our <span class="grad-text">Clients Say</span></h2>
+    <p class="section-sub">Real feedback from people we've helped build intelligent systems.</p>
+  </div>
+
+  <div id="reviews-container" class="reviews-container reveal"></div>
+
+  <div id="load-more-wrapper" style="text-align: center; margin-top: 2rem;">
+    <button id="load-more-btn" class="btn-secondary" style="display: none;">+ Load More Reviews</button>
+  </div>
+
+  <div id="add-review-box" class="review-card add-review-card reveal" style="max-width: 700px; margin: 3rem auto 0 auto;">
+    <h3 style="margin-bottom: 0.5rem;">✍️ Share Your Experience</h3>
+    <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Your feedback helps others trust our work.</p>
+    <div id="review-login-status" style="margin-bottom: 1rem;"></div>
+    <div id="review-form-fields" style="display: none;">
+      <div class="star-rating" id="star-rating-widget">
+        <span data-value="1">★</span><span data-value="2">★</span><span data-value="3">★</span><span data-value="4">★</span><span data-value="5">★</span>
+      </div>
+      <textarea id="review-text-input" rows="3" placeholder="Tell us about your project, our communication, results..." style="width: 100%; margin: 1rem 0; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 0.8rem; color: white;"></textarea>
+      <button id="submit-review-btn" class="submit-btn">Post Review</button>
+      <div id="review-feedback" style="margin-top: 0.8rem; font-size: 0.85rem;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING (same)
+<section id="pricing">
+  <div class="centered reveal">
+    <span class="section-tag">Pricing</span>
+    <h2 class="section-title">Transparent <span class="grad-text">Investment Plans</span></h2>
+    <p class="section-sub">No hidden costs. No surprise invoices. Just clear, project-based pricing that scales with your ambition.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card reveal"><div class="price-name">Starter</div><div class="price-amount"><sup>$</sup>2,500</div><div class="price-period">one-time project</div><ul class="price-features"><li>AI-integrated landing page</li><li>One chatbot / assistant</li><li>Basic automation workflow</li><li>3 revision rounds</li><li>30-day post-launch support</li></ul><button class="price-btn s" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Started</button></div>
+    <div class="price-card featured reveal"><div class="price-badge">Most Popular</div><div class="price-name">Professional</div><div class="price-amount"><sup>$</sup>7,500</div><div class="price-period">one-time project</div><ul class="price-features"><li>Full AI-powered web application</li><li>Custom AI agent (multi-tool)</li><li>5+ automation pipelines</li><li>RAG knowledge base setup</li><li>ML model integration</li><li>90-day support + monitoring</li></ul><button class="price-btn p" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Started</button></div>
+    <div class="price-card reveal"><div class="price-name">Enterprise</div><div class="price-amount">Custom</div><div class="price-period">scoped per project</div><ul class="price-features"><li>Full AI transformation program</li><li>Multi-agent orchestration</li><li>Custom ML training pipeline</li><li>Dedicated project team</li><li>SLA + priority support</li><li>Ongoing retainer available</li></ul><button class="price-btn s" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact Us</button></div>
+  </div>
+</section> -->
+
+<!-- CONTACT (same) -->
+<section id="contact">
+  <div class="centered reveal">
+    <span class="section-tag">Let's Talk</span>
+    <h2 class="section-title">Ready to Build <span class="grad-text">Something Intelligent?</span></h2>
+  </div>
+  <div class="contact-wrap">
+    <div class="contact-info reveal">
+      <h3>We'd love to hear about your project.</h3>
+      <p>Whether you have a detailed spec or just an idea, we'll help you figure out the right AI solution and give you an honest quote — no pressure, no fluff.</p>
+      <div class="contact-item"><div class="c-icon">📧</div><div><span>Email us at</span><br><a href="mailto:egentucampany@gmail.com">egentucampany@gmail.com</a></div></div>
+      <div class="contact-item"><div class="c-icon">💬</div><div><span>Prefer chat?</span><br><a href="#">Book a 30-min call →</a></div></div>
+      <div class="contact-item"><div class="c-icon">🌍</div><div><span>We work globally</span><br><a href="#">Remote-first agency</a></div></div>
+    </div>
+    <form id="contactForm" class="reveal">
+      <div class="form-row"><input type="text" id="contactName" placeholder="Your Name" required/><input type="email" id="contactEmail" placeholder="Email Address" required/></div>
+      <input type="text" id="contactCompany" placeholder="Company (optional)"/>
+      <select id="contactService"><option value="" disabled selected>Service you need...</option><option>AI-Powered Website</option><option>AI Agent</option><option>Business Automation</option><option>ML Model</option><option>Full AI Transformation</option><option>Consulting</option></select>
+      <textarea id="contactMessage" placeholder="Tell us about your project..."></textarea>
+      <button type="submit" class="submit-btn">Send Message </button>
+      <div class="success-msg" id="successMsg">✅ Message sent! We'll reply within 24 hours.</div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER (same) -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo-wrapper-footer">
+        <img src="{{ url_for('static', filename='img/logo-icon.png') }}" alt="Egentu" class="footer-logo-img">
+      </div>
+      <p>We engineer intelligent systems that automate the ordinary and amplify the extraordinary. AI is not the future — it's your competitive edge, right now.</p>
+    </div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="#services">AI Websites</a></li><li><a href="#services">AI Agents</a></li><li><a href="#services">Automations</a></li><li><a href="#services">ML Models</a></li><li><a href="#services">RAG Systems</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="#process">Our Process</a></li><li><a href="#work">Portfolio</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#contact">Contact</a></li><li><a href="#">Blog</a></li></ul></div>
+    <div class="footer-col"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">Cookie Policy</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 Egentu. All rights reserved. Built with </p><div class="socials"><a class="social-btn" href="#">𝕏</a><a class="social-btn" href="#">in</a><a class="social-btn" href="#">⌥</a></div></div>
+</footer>
+
+<script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+<script src="{{ url_for('static', filename='js/review.js') }}" defer></script>
+</body>
+</html>

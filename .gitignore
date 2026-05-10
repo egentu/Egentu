@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# Flask
+instance/
+.env
+contacts.json
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Database (if any local SQLite)
+*.db
+*.sqlite
