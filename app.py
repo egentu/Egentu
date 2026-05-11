@@ -21,13 +21,17 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['GOOGLE_CLIENT_ID'] = os.environ.get('GOOGLE_CLIENT_ID')
 app.config['GOOGLE_CLIENT_SECRET'] = os.environ.get('GOOGLE_CLIENT_SECRET')
+
 # Email configuration
 app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER')
 app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
 app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', 'True') == 'True'
+app.config['MAIL_USE_SSL'] = os.environ.get('MAIL_USE_SSL', 'False') == 'True'
 app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER')
+
+# Initialize mail
 mail = Mail(app)
 
 # Check required environment variables
@@ -84,7 +88,7 @@ class Review(db.Model):
         }
 
 
-# ---------- Contact Storage (JSON file, unchanged) ----------
+# ---------- Contact Storage (JSON file) ----------
 CONTACTS_FILE = 'contacts.json'
 contacts = []
 
@@ -123,7 +127,7 @@ def contact_form():
         if not data.get('name') or not data.get('email'):
             return jsonify({'error': 'Name and email are required'}), 400
 
-        # Save to JSON (optional)
+        # Save to JSON
         contact = {
             'id': len(contacts) + 1,
             'name': data['name'],
@@ -137,9 +141,9 @@ def contact_form():
         contacts.append(contact)
         save_contacts()
 
-        # Send email to you
+        # Send email
         msg = Message(f"New contact from {data['name']}",
-                      recipients=['egentucampany@gmail.com'])  # your email
+                      recipients=['egentucampany@gmail.com'])
         msg.body = f"""
 Name: {data['name']}
 Email: {data['email']}
@@ -242,7 +246,7 @@ def get_current_user():
         'email': current_user.email,
         'avatar': current_user.avatar_url
     })
-
+# ---------- Legal Pages ----------
 @app.route('/privacy')
 def privacy():
     return render_template('privacy.html')
@@ -251,12 +255,12 @@ def privacy():
 def terms():
     return render_template('terms.html')
 
+
 @app.route('/cookies')
 def cookies():
     return render_template('cookies.html')
 
 
-# ---------- Create database tables (run on first start) ----------
 with app.app_context():
     db.create_all()
     print("✅ Database tables ready (Neon PostgreSQL)")
