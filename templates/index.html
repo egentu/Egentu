@@ -213,10 +213,29 @@
     </div>
     <div class="footer-col"><h4>Services</h4><ul><li><a href="#services">AI Websites</a></li><li><a href="#services">AI Agents</a></li><li><a href="#services">Automations</a></li><li><a href="#services">ML Models</a></li><li><a href="#services">RAG Systems</a></li></ul></div>
     <div class="footer-col"><h4>Company</h4><ul><li><a href="#process">Our Process</a></li><li><a href="#work">Portfolio</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#contact">Contact</a></li><li><a href="#">Blog</a></li></ul></div>
-    <div class="footer-col"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">Cookie Policy</a></li></ul></div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms of Service</a></li>
+        <li><a href="/cookies">Cookie Policy</a></li>
+      </ul>
+    </div>
   </div>
   <div class="footer-bottom"><p>© 2025 Egentu. All rights reserved. Built with </p><div class="socials"><a class="social-btn" href="#">𝕏</a><a class="social-btn" href="#">in</a><a class="social-btn" href="#">⌥</a></div></div>
 </footer>
+
+<!-- Service Modal (hidden initially) -->
+<div id="serviceModal" class="modal-overlay">
+  <button class="close-modal-btn">&times;</button>
+  <div class="modal-content">
+    <div class="svc-icon" id="modalIcon">🤖</div>
+    <h3 id="modalTitle">Service Title</h3>
+    <p id="modalDesc">Service description will appear here.</p>
+    <span class="svc-tag" id="modalTag">AI Solution</span>
+    <button id="modalContactBtn" class="modal-contact-btn">📩 Contact Us About This Service</button>
+  </div>
+</div>
 
 <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
 <script src="{{ url_for('static', filename='js/review.js') }}" defer></script>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Terms & Conditions | Egentu</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo-icon.png') }}">
+<style>
+  body { background: var(--bg); }
+  .legal-content { max-width: 900px; margin: 0 auto; padding: 8rem 6% 5rem; }
+  .legal-card { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 2rem; }
+  .legal-card h3 { margin-top: 1.5rem; margin-bottom: 0.5rem; color: var(--purple2); }
+  .legal-card p, .legal-card ul { color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+  .legal-card ul { padding-left: 1.5rem; }
+  .back-home { display: inline-block; margin-top: 2rem; color: var(--purple2); text-decoration: none; }
+  .back-home:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav id="navbar" style="position: relative; background: var(--bg2);">
+  <div class="logo-wrapper">
+    <img src="{{ url_for('static', filename='img/logo-icon.png') }}" alt="Egentu" class="logo-img">
+  </div>
+  <ul class="nav-links">
+    <li><a href="/#services">Services</a></li>
+    <li><a href="/#process">Process</a></li>
+    <li><a href="/#work">Work</a></li>
+    <li><a href="/#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="window.location.href='/#contact'">Get Started</button>
+</nav>
+
+<div class="legal-content">
+  <div class="centered reveal">
+    <span class="section-tag">Legal</span>
+    <h1 class="section-title">Terms & <span class="grad-text">Conditions</span></h1>
+  </div>
+  <div class="legal-card reveal">
+    <h3>1. Services</h3>
+    <p>Egentu provides AI development services including websites, agents, automations, and ML models. All deliverables are agreed in writing per project.</p>
+
+    <h3>2. Payments</h3>
+    <p>Project fees are quoted upfront. 50% deposit required to start, remaining 50% upon completion unless otherwise stated in the contract.</p>
+
+    <h3>3. Intellectual Property</h3>
+    <p>Upon full payment, you own the final deliverables. Our underlying code libraries and AI models remain our IP.</p>
+
+    <h3>4. Limitations</h3>
+    <p>We are not liable for indirect damages. Our total liability is limited to the amount you paid for the project.</p>
+
+    <h3>5. Governing Law</h3>
+    <p>These terms are governed by the laws of the jurisdiction where Egentu operates (Spain/Europe).</p>
+
+    <p style="margin-top: 2rem; font-size: 0.8rem;">Last updated: May 2026</p>
+    <a href="/" class="back-home">← Back to Home</a>
+  </div>
+</div>
+
+<footer style="background: var(--card); border-top: 1px solid var(--border); padding: 3rem 6% 2rem; margin-top: 2rem;">
+  <div class="footer-bottom"><p>© 2025 Egentu. All rights reserved.</p></div>
+</footer>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

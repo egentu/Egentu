@@ -243,6 +243,18 @@ def get_current_user():
         'avatar': current_user.avatar_url
     })
 
+@app.route('/privacy')
+def privacy():
+    return render_template('privacy.html')
+
+@app.route('/terms')
+def terms():
+    return render_template('terms.html')
+
+@app.route('/cookies')
+def cookies():
+    return render_template('cookies.html')
+
 
 # ---------- Create database tables (run on first start) ----------
 with app.app_context():

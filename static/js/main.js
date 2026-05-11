@@ -203,3 +203,62 @@ if (contactForm) {
     }
   });
 }
+
+// ---------- Service Card Modal (center, larger text, contact button) ----------
+const serviceCards = document.querySelectorAll('.service-card');
+const modal = document.getElementById('serviceModal');
+const modalIcon = document.getElementById('modalIcon');
+const modalTitle = document.getElementById('modalTitle');
+const modalDesc = document.getElementById('modalDesc');
+const modalTag = document.getElementById('modalTag');
+const closeModalBtn = modal?.querySelector('.close-modal');
+const modalContactBtn = document.getElementById('modalContactBtn');
+
+function openServiceModal(card) {
+  // Extract data from clicked service card
+  const icon = card.querySelector('.svc-icon')?.innerHTML || '⚙️';
+  const title = card.querySelector('h3')?.innerText || 'Service';
+  const desc = card.querySelector('p')?.innerText || '';
+  const tag = card.querySelector('.svc-tag')?.innerText || 'AI Solution';
+
+  modalIcon.innerHTML = icon;
+  modalTitle.innerText = title;
+  modalDesc.innerText = desc;
+  modalTag.innerText = tag;
+
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden'; // prevent scroll behind modal
+}
+
+function closeServiceModal() {
+  modal.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Attach click event to every service card
+if (serviceCards.length && modal) {
+  serviceCards.forEach(card => {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', (e) => {
+      // Prevent if clicking inside a button or link inside card (optional)
+      if (e.target.closest('a, button')) return;
+      openServiceModal(card);
+    });
+  });
+
+  closeModalBtn?.addEventListener('click', closeServiceModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeServiceModal();
+  });
+
+  // Redirect to contact section when modal button is clicked
+  if (modalContactBtn) {
+    modalContactBtn.addEventListener('click', () => {
+      closeServiceModal();
+      const contactSection = document.getElementById('contact');
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+}
