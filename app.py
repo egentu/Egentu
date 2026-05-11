@@ -9,7 +9,7 @@ import secrets
 from dotenv import load_dotenv
 from flask_mail import Mail, Message
 
-# Load environment variables
+# Load environment variables - IMPORTANT for Vercel
 load_dotenv()
 
 # Initialize Flask app
@@ -25,25 +25,17 @@ app.config['GOOGLE_CLIENT_SECRET'] = os.environ.get('GOOGLE_CLIENT_SECRET')
 # Email configuration
 app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER')
 app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
-app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', 'True') == 'True'
-app.config['MAIL_USE_SSL'] = os.environ.get('MAIL_USE_SSL', 'False') == 'True'
+app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', 'True').lower() == 'true'
+app.config['MAIL_USE_SSL'] = os.environ.get('MAIL_USE_SSL', 'False').lower() == 'true'
 app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER')
-
-# Initialize mail
-mail = Mail(app)
-
-# Check required environment variables
-if not app.config['SQLALCHEMY_DATABASE_URI']:
-    raise ValueError("DATABASE_URL environment variable not set")
-if not app.config['GOOGLE_CLIENT_ID'] or not app.config['GOOGLE_CLIENT_SECRET']:
-    print("⚠️ Warning: Google OAuth credentials not set. Login will not work.")
 
 # Initialize extensions
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login_google'
+mail = Mail(app)
 oauth = OAuth(app)
 
 # Google OAuth registration
@@ -54,7 +46,6 @@ google = oauth.register(
     server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
     client_kwargs={'scope': 'openid email profile'},
 )
-
 
 # ---------- Database Models ----------
 class User(UserMixin, db.Model):
@@ -73,7 +64,7 @@ class Review(db.Model):
     __tablename__ = 'reviews'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    rating = db.Column(db.Integer, nullable=False)  # 1-5
+    rating = db.Column(db.Integer, nullable=False)
     review_text = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
 
@@ -88,24 +79,18 @@ class Review(db.Model):
         }
 
 
-# ---------- Contact Storage (JSON file) ----------
-CONTACTS_FILE = 'contacts.json'
-contacts = []
-
-
-def load_contacts():
-    global contacts
-    if os.path.exists(CONTACTS_FILE):
-        with open(CONTACTS_FILE, 'r') as f:
-            contacts = json.load(f)
-
-
-def save_contacts():
-    with open(CONTACTS_FILE, 'w') as f:
-        json.dump(contacts, f, indent=2)
-
-
-load_contacts()
+# ---------- Contact Storage - FIXED for Vercel (use database instead of file) ----------
+# Create a Contact model for database storage
+class Contact(db.Model):
+    __tablename__ = 'contacts'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200), nullable=False)
+    email = db.Column(db.String(200), nullable=False)
+    company = db.Column(db.String(200))
+    service = db.Column(db.String(200))
+    message = db.Column(db.Text)
+    timestamp = db.Column(db.DateTime, default=datetime.now(timezone.utc))
+    status = db.Column(db.String(50), default='new')
 
 
 # ---------- Flask-Login user loader ----------
@@ -127,19 +112,17 @@ def contact_form():
         if not data.get('name') or not data.get('email'):
             return jsonify({'error': 'Name and email are required'}), 400
 
-        # Save to JSON
-        contact = {
-            'id': len(contacts) + 1,
-            'name': data['name'],
-            'email': data['email'],
-            'company': data.get('company', ''),
-            'service': data.get('service', ''),
-            'message': data.get('message', ''),
-            'timestamp': datetime.now().isoformat(),
-            'status': 'new'
-        }
-        contacts.append(contact)
-        save_contacts()
+        # Save to database (works on Vercel)
+        contact = Contact(
+            name=data['name'],
+            email=data['email'],
+            company=data.get('company', ''),
+            service=data.get('service', ''),
+            message=data.get('message', ''),
+            status='new'
+        )
+        db.session.add(contact)
+        db.session.commit()
 
         # Send email
         msg = Message(f"New contact from {data['name']}",
@@ -207,7 +190,6 @@ def logout():
 # ---------- Reviews API ----------
 @app.route('/api/reviews', methods=['GET'])
 def get_reviews():
-    """Return all reviews (public)"""
     reviews = Review.query.order_by(Review.created_at.desc()).all()
     return jsonify([r.to_dict() for r in reviews])
 
@@ -215,7 +197,6 @@ def get_reviews():
 @app.route('/api/reviews', methods=['POST'])
 @login_required
 def submit_review():
-    """Submit a review (login required)"""
     data = request.get_json()
     rating = data.get('rating')
     review_text = data.get('review_text', '').strip()
@@ -239,17 +220,19 @@ def submit_review():
 @app.route('/api/user', methods=['GET'])
 @login_required
 def get_current_user():
-    """Return current logged-in user info"""
     return jsonify({
         'id': current_user.id,
         'name': current_user.name,
         'email': current_user.email,
         'avatar': current_user.avatar_url
     })
+
+
 # ---------- Legal Pages ----------
 @app.route('/privacy')
 def privacy():
     return render_template('privacy.html')
+
 
 @app.route('/terms')
 def terms():
@@ -261,13 +244,14 @@ def cookies():
     return render_template('cookies.html')
 
 
+# ---------- Create database tables ----------
 with app.app_context():
     db.create_all()
-    print("✅ Database tables ready (Neon PostgreSQL)")
+    print("✅ Database tables ready")
 
+# For Vercel serverless (no debug mode)
+app.debug = False
+
+# For local development
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
-else:
-    # For Vercel production
-    # Don't run debug mode
-    pass
+    app.run(debug=False, host='0.0.0.0', port=5000)
