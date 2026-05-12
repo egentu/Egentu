@@ -3,14 +3,18 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from authlib.integrations.flask_client import OAuth
 from datetime import datetime, timezone
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
+#from flask_limiter import Limiter
+#from flask_limiter.util import get_remote_address
 from flask_wtf.csrf import CSRFProtect
 import os
 import secrets
 import bleach
 from dotenv import load_dotenv
 from flask_mail import Mail, Message
+from collections import defaultdict
+from datetime import datetime, timedelta
+
+
 
 # Load environment variables
 load_dotenv()
@@ -60,11 +64,11 @@ csrf = CSRFProtect()
 csrf.init_app(app)
 
 # Rate limiting - FIXED syntax
-limiter = Limiter(
-    get_remote_address,
-    app=app,
-    default_limits=["200 per day", "50 per hour"]
-)
+#limiter = Limiter(
+#    get_remote_address,
+#    app=app,
+#    default_limits=["200 per day", "50 per hour"]
+#)
 
 # Google OAuth registration
 google = oauth.register(
@@ -153,6 +157,26 @@ def sanitize_text(text, max_length=1000):
     return cleaned[:max_length]
 
 
+rate_limits = defaultdict(list)
+
+
+def is_rate_limited(identifier, max_requests, time_window_seconds):
+    """Check if request should be rate limited"""
+    now = datetime.now()
+    cutoff = now - timedelta(seconds=time_window_seconds)
+
+    # Clean old requests
+    rate_limits[identifier] = [t for t in rate_limits[identifier] if t > cutoff]
+
+    # Check limit
+    if len(rate_limits[identifier]) >= max_requests:
+        return True
+
+    # Add current request
+    rate_limits[identifier].append(now)
+    return False
+
+
 # ---------- Routes ----------
 @app.route('/')
 def home():
@@ -160,7 +184,13 @@ def home():
 
 
 @app.route('/api/contact', methods=['POST'])
-@limiter.limit("5 per minute")
+#@limiter.limit("5 per minute")
+def contact_form():
+    # Limit: 5 submissions per 60 seconds per IP
+    client_ip = request.remote_addr
+    if is_rate_limited(f"contact_{client_ip}", 5, 60):
+        return jsonify({'error': 'Too many messages. Please wait a moment.'}), 429
+
 def contact_form():
     try:
         data = request.get_json()
@@ -299,8 +329,10 @@ def logout():
 
 
 # ---------- Reviews API ----------
+# ---------- Reviews API ----------
 @app.route('/api/reviews', methods=['GET'])
 def get_reviews():
+    """Get all reviews - no login required"""
     try:
         reviews = Review.query.order_by(Review.created_at.desc()).limit(50).all()
         return jsonify([r.to_dict() for r in reviews])
@@ -311,8 +343,8 @@ def get_reviews():
 
 @app.route('/api/reviews', methods=['POST'])
 @login_required
-@limiter.limit("3 per hour")
 def submit_review():
+    """Submit a new review - login required"""
     try:
         data = request.get_json()
         rating = data.get('rating')
@@ -332,7 +364,7 @@ def submit_review():
         # Sanitize review text
         sanitized_text = sanitize_text(review_text, 1000)
 
-        # Check if user has already reviewed (optional anti-spam)
+        # Check if user has already reviewed
         existing_review = Review.query.filter_by(user_id=current_user.id).first()
         if existing_review:
             return jsonify({'error': 'You can only submit one review'}), 400
@@ -351,8 +383,6 @@ def submit_review():
         db.session.rollback()
         print(f"Review submission error: {e}")
         return jsonify({'error': 'Failed to submit review'}), 500
-
-
 @app.route('/api/user', methods=['GET'])
 @login_required
 def get_current_user():

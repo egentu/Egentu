@@ -56,3 +56,4 @@ htmlcov/
 .vercel
 .railway
 *.pid
+.env*.local
