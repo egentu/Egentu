@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | Egentu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .error-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: var(--bg);
+        }
+        .error-code {
+            font-size: 6rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--purple2), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .error-message {
+            font-size: 1.5rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div>
+            <div class="error-code">404</div>
+            <h1 class="error-message">Page Not Found</h1>
+            <p style="color: var(--muted); margin-bottom: 2rem;">The page you're looking for doesn't exist.</p>
+            <a href="/" class="btn-primary">Go Home</a>
+        </div>
+    </div>
+</body>
+</html>
