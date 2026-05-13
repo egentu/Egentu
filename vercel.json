@@ -16,6 +16,11 @@
       "dest": "/static/$1"
     },
     {
+    "src": "/(robots.txt|sitemap.xml|BingSiteAuth.xml|google4b7cb44608b330f8.html)",
+    "dest": "/$1"
+    },
+
+    {
       "src": "/(.*)",
       "dest": "app.py"
     }
