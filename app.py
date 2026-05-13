@@ -138,6 +138,14 @@ class Contact(db.Model):
     )
 
 
+@app.route('/robots.txt')
+@app.route('/sitemap.xml')
+@app.route('/BingSiteAuth.xml')
+@app.route('/google4b7cb44608b330f8.html')
+def serve_static_root():
+    return send_from_directory('public', request.path[1:])
+
+
 # ---------- Flask-Login user loader ----------
 @login_manager.user_loader
 def load_user(user_id):
