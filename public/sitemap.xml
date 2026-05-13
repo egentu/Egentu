@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- ==================== HOMEPAGE ==================== -->
+  <url>
+    <loc>https://egentu.vercel.app/</loc>
+    <lastmod>2026-05-14T10:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+
+    <!-- Mobile compatibility -->
+    <mobile:mobile/>
+
+    <!-- Language alternative (self-reference) -->
+    <xhtml:link rel="alternate" hreflang="en" href="https://egentu.vercel.app/"/>
+
+    <!-- Image 1: Logo -->
+    <image:image>
+      <image:loc>https://egentu.vercel.app/static/img/logo-icon.png</image:loc>
+      <image:title>Egentu Brand Logo</image:title>
+      <image:caption>Official logo of Egentu AI agency</image:caption>
+      <image:license>https://egentu.vercel.app/terms</image:license>
+      <image:geo_location>Global</image:geo_location>
+    </image:image>
+
+    <!-- Image 2: Open Graph preview -->
+    <image:image>
+      <image:loc>https://egentu.vercel.app/static/img/og-image.png</image:loc>
+      <image:title>Egentu Open Graph Image</image:title>
+      <image:caption>Preview image for social sharing - AI agency branding</image:caption>
+      <image:license>https://egentu.vercel.app/terms</image:license>
+    </image:image>
+
+    <!-- Image 3: Tab icon / favicon -->
+    <image:image>
+      <image:loc>https://egentu.vercel.app/static/img/tab-logo.png</image:loc>
+      <image:title>Egentu Tab Icon</image:title>
+      <image:caption>Favicon used in browser tabs</image:caption>
+    </image:image>
+
+    <!-- Image 4: Any other brand asset (e.g., hero background? but it's canvas; no static image) -->
+    <!-- If you have a hero background image, add it here. For now, skip. -->
+  </url>
+
+  <!-- ==================== PRIVACY POLICY ==================== -->
+  <url>
+    <loc>https://egentu.vercel.app/privacy</loc>
+    <lastmod>2026-05-14T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <mobile:mobile/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://egentu.vercel.app/privacy"/>
+    <!-- No unique images on this page (unless you add a logo) -->
+    <image:image>
+      <image:loc>https://egentu.vercel.app/static/img/logo-icon.png</image:loc>
+      <image:title>Egentu Logo</image:title>
+      <image:caption>Company logo in privacy page header</image:caption>
+    </image:image>
+  </url>
+
+  <!-- ==================== TERMS OF SERVICE ==================== -->
+  <url>
+    <loc>https://egentu.vercel.app/terms</loc>
+    <lastmod>2026-05-14T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <mobile:mobile/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://egentu.vercel.app/terms"/>
+    <image:image>
+      <image:loc>https://egentu.vercel.app/static/img/logo-icon.png</image:loc>
+      <image:title>Egentu Logo</image:title>
+    </image:image>
+  </url>
+
+  <!-- ==================== COOKIES POLICY ==================== -->
+  <url>
+    <loc>https://egentu.vercel.app/cookies</loc>
+    <lastmod>2026-05-14T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <mobile:mobile/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://egentu.vercel.app/cookies"/>
+    <image:image>
+      <image:loc>https://egentu.vercel.app/static/img/logo-icon.png</image:loc>
+      <image:title>Egentu Logo</image:title>
+    </image:image>
+  </url>
+</urlset>

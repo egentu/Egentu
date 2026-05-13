@@ -1,0 +1,57 @@
+# ============================================
+# ROBOTS.TXT FOR EGENTU (Maximum detail)
+# ============================================
+
+User-agent: *
+Crawl-delay: 2
+Request-rate: 1/2
+
+# Allow core public content
+Allow: /
+Allow: /privacy
+Allow: /terms
+Allow: /cookies
+Allow: /static/
+
+# Disallow all backend, API, authentication, and dynamic endpoints
+Disallow: /api/
+Disallow: /api/contact
+Disallow: /api/reviews
+Disallow: /api/user
+Disallow: /login/
+Disallow: /login/google
+Disallow: /callback/
+Disallow: /callback/google
+Disallow: /logout
+Disallow: /health
+Disallow: /admin
+Disallow: /_next/
+Disallow: /__nextjs_*
+Disallow: /vercel*
+
+# Specific bots with custom rules
+User-agent: Googlebot
+Crawl-delay: 1
+Allow: /
+Allow: /*.html
+Disallow: /api/
+
+User-agent: Bingbot
+Crawl-delay: 1
+Allow: /
+Disallow: /api/
+
+User-agent: Twitterbot
+Allow: /
+Allow: /static/img/
+
+User-agent: Facebookexternalhit
+Allow: /
+Allow: /static/img/og-image.png
+
+# Sitemap reference (both XML and TXT index if needed)
+Sitemap: https://egentu.vercel.app/sitemap.xml
+Sitemap: https://egentu.vercel.app/sitemap_index.xml   (optional, if you split later)
+
+# Host directive (optional, but helps)
+Host: https://egentu.vercel.app
