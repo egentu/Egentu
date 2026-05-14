@@ -12,6 +12,10 @@
       "dest": "/static/$1"
     },
     {
+      "src": "/(.*)",
+      "dest": "app.py"
+    },
+    {
       "src": "/robots.txt",
       "dest": "/robots.txt"
     },
@@ -27,9 +31,6 @@
       "src": "/google4b7cb44608b330f8.html",
       "dest": "/google4b7cb44608b330f8.html"
     },
-    {
-      "src": "/(.*)",
-      "dest": "app.py"
-    }
+
   ]
 }
