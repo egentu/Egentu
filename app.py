@@ -79,6 +79,8 @@ google = oauth.register(
     client_kwargs={'scope': 'openid email profile'},
 )
 
+app = Flask(__name__, static_folder='static', static_url_path='/static')
+
 
 # ---------- Database Models ----------
 class User(UserMixin, db.Model):
